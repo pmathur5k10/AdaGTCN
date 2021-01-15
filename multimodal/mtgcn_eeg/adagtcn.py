@@ -311,24 +311,24 @@ def run(train_loader, valid_loader):
 run(train_ST_FFD_loader, valid_ST_FFD_loader)
 print(test(test_ST_FFD_loader))
 
-# y_pred = []
-# y_true=[]
+y_pred = []
+y_true=[]
 
-# for data in test_ST_FFD_loader:  # Iterate in batches over the training/test dataset.
-#     y_true.extend(data[1].long().tolist())
-#     y_pred.extend(torch.sigmoid(model(data[0].float().to(device)).view(-1)).cpu().tolist())
+for data in test_ST_FFD_loader:  # Iterate in batches over the training/test dataset.
+    y_true.extend(data[1].long().tolist())
+    y_pred.extend(torch.sigmoid(model(data[0].float().to(device)).view(-1)).cpu().tolist())
     
-# # for i, batch in enumerate(test_iterator):
-# #   y_true.extend(batch.label.cpu().tolist())
-# #   y_pred.extend(torch.sigmoid(model(batch.text[0], batch.text[1]).view(-1)).cpu().tolist())
-# print(len(y_pred), len(y_true))
+for i, batch in enumerate(test_iterator):
+  y_true.extend(batch.label.cpu().tolist())
+  y_pred.extend(torch.sigmoid(model(batch.text[0], batch.text[1]).view(-1)).cpu().tolist())
+print(len(y_pred), len(y_true))
 
-# for i in range(len(y_pred)):
-#   if(y_pred[i]>0.5):
-#     y_pred[i]=1.0
-#   else:
-#     y_pred[i]=0.0
+for i in range(len(y_pred)):
+  if(y_pred[i]>0.5):
+    y_pred[i]=1.0
+  else:
+    y_pred[i]=0.0
 
-# print(f1_score(y_true, y_pred, average='micro'))
-# print(classification_report(y_true, y_pred))
-# print(confusion_matrix(y_true, y_pred))
+print(f1_score(y_true, y_pred, average='micro'))
+print(classification_report(y_true, y_pred))
+print(confusion_matrix(y_true, y_pred))
